@@ -1,0 +1,121 @@
+<!doctype html>
+<head>
+    <title>Pong</title>
+</head>
+<body>
+    <body style="background-color:black;">
+    <canvas id="gameCanvas" width="1895%" height="920%"></canvas>
+    <script>
+        var canvas, canvasContext;
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
+            
+            setInterval(mainloop, 1000 / 50);
+        }
+        
+        var ballXpos = 0;
+        var ballYpos = 0;
+        const BALL_SIZE = 20;
+        var ballXspeed = 10;
+        var ballYspeed = 10;
+        
+        var playerPaddleXpos = BALL_SIZE;
+        var playerPaddleYpos = 0;
+        const PLAYER_PADDLE_WIDTH = 20;
+        const PLAYER_PADDLE_HEIGHT = 300;
+        var playerPaddleYspeed = 10;
+        
+    // make this a new colorRect in the mainloop color = white   
+        
+        var startingPos = true;
+        
+        function mainloop() {
+            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
+            colorRect(ballXpos,ballYpos,BALL_SIZE,BALL_SIZE,'purple'); // ball
+            colorRect(playerPaddleXpos,playerPaddleYpos,PLAYER_PADDLE_WIDTH,PLAYER_PADDLE_HEIGHT,'red'); // player paddle
+            
+            ballMove();
+            playerPaddleMove()
+            
+            if(startingPos){
+            startPos();
+            startingPos = false;
+                
+            }
+        }
+        
+        const UP_KEY = 87; 
+        const DOWN_KEY = 83;
+        var upPressed = false;
+        var downPressed = false;
+        
+        function keyPressed(evt){
+            if(evt.keyCode == UP_KEY){
+                upPressed = true;
+            }
+            if(evt.keyCode == DOWN_KEY){
+                downPressed = true;
+            }
+        }
+        
+        function keyReleased(evt){
+            if(evt.keyCode == UP_KEY){
+                upPressed = false;
+            }
+            if(evt.keyCode == DOWN_KEY){
+                downPressed = false;
+            }
+        }
+        
+        function playerPaddleMove(){
+            if(upPressed == true){  
+                playerPaddleYpos -= playerPaddleYspeed;
+            }
+            if(downPressed == true){
+                playerPaddleYpos += playerPaddleYspeed
+            }
+            
+        }
+            function startPos(){
+                ballXpos = canvas.width / 2 - BALL_SIZE / 2;
+                ballYpos = canvas.height / 2 - BALL_SIZE / 2;
+            }
+        
+        function ballMove(){
+            ballXpos = ballXpos + ballXspeed;
+            ballYpos = ballYpos + ballYspeed; 
+            
+            if(ballXpos > canvas.width - BALL_SIZE){
+               ballXspeed = ballXspeed * -1; 
+            }
+            if(ballXpos < 0){
+               ballXspeed = ballXspeed * -1; 
+            }
+            if(ballYpos > canvas.height - BALL_SIZE){
+               ballYspeed = ballYspeed * -1; 
+            }
+            if(ballYpos < 0){
+               ballYspeed = ballYspeed * -1; 
+            }
+            
+            if(ballXpos < playerPaddleXpos + PLAYER_PADDLE_WIDTH){
+               ballXspeed = ballXspeed * -1;
+               }
+        }
+        
+        
+         function colorRect(x,y,w,h,c){
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x,y,w,h);
+        }
+
+        
+        
+    
+    </script>
+</body>
