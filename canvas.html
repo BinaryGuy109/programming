@@ -6,6 +6,12 @@
     <body style="background-color:darkslategrey;">
     <canvas id="gameCanvas" width="1895%" height="920%"></canvas>
     <script>
+        
+     var username = '';
+        while (username == '' || username == null) {
+        username = prompt('What is your name?') || ''; //Website will ask for name
+        }
+
         var canvas, canvasContext;
 
         window.onload = function() {
