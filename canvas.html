@@ -38,6 +38,7 @@
         
         var startingPos = true;
         
+        //colors for ball, background, and player
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // bg
             colorRect(ballXpos,ballYpos,BALL_SIZE,BALL_SIZE,'purple'); // ball
@@ -57,6 +58,8 @@
         const DOWN_KEY = 83;
         var upPressed = false;
         var downPressed = false;
+
+        //controls
         
         function keyPressed(evt){
             if(evt.keyCode == UP_KEY){
