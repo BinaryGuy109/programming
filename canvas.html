@@ -4,7 +4,7 @@
 </head>
 <body>
     <body style="background-color:darkslategrey;">
-    <canvas id="gameCanvas" width="1895%" height="920%"></canvas>
+    <canvas id="gameCanvas" width="auto" height="auto"></canvas>
     <script>
         
      var username = '';
@@ -96,24 +96,24 @@
             }
         
         function ballMove(){
-            ballXpos = ballXpos + ballXspeed;
-            ballYpos = ballYpos + ballYspeed; 
+            ballXpos = ballXpos + ballXspeed; //ball mpvement
+            ballYpos = ballYpos + ballYspeed; //ball movement
             
             if(ballXpos > canvas.width - BALL_SIZE){
-               ballXspeed = ballXspeed * -1; 
+               ballXspeed = ballXspeed *= -1; 
             }
             if(ballXpos < 0){
-               ballXspeed = ballXspeed * -1; 
+               ballXspeed = ballXspeed *= -1; 
             }
             if(ballYpos > canvas.height - BALL_SIZE){
-               ballYspeed = ballYspeed * -1; 
+               ballYspeed = ballYspeed *= -1; 
             }
             if(ballYpos < 0){
-               ballYspeed = ballYspeed * -1; 
+               ballYspeed = ballYspeed *= -1; 
             }
             
             if(ballXpos < playerPaddleXpos + PLAYER_PADDLE_WIDTH){
-               ballXspeed = ballXspeed * -1;
+               ballXspeed = ballXspeed *= -1;
                }
         }
         
