@@ -11,14 +11,14 @@
     </select>
     <script>
         
-     var username = '';
-        while (username == '' || username == null) {
-        username = prompt('What is your name?') || ''; //Program will ask for username
+     var UserName = '';
+        while (UserName == '' || username == null) {
+        UserName = prompt('What is your name?') || ''; //Program will ask for username
         }
 
-     var difficulty = '';
-        while (difficulty == '' || difficulty == null) {
-        difficulty = prompt('Select Difficulty') || ''; //Program will ask for difficulty
+     var Difficulty = '';
+        while (Difficulty == '' || difficulty == null) {
+        Difficulty = prompt('Select Difficulty') || ''; //Program will ask for difficulty
         }
 
         var canvas, canvasContext;
@@ -41,11 +41,11 @@
         var ballYspeed = 13;
         
         //Player Movement and Speed
-        var playerPaddleXpos = BALL_SIZE;
-        var playerPaddleYpos = 0;
+        var PlayerPaddleXpos = BALL_SIZE;
+        var PlayerPaddleYpos = 0;
         const PLAYER_PADDLE_WIDTH = 20;
         const PLAYER_PADDLE_HEIGHT = 300;
-        var playerPaddleYspeed = 10;
+        var PlayerPaddleYspeed = 10;
         
         var startingPos = true;
         
