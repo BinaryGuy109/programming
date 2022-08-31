@@ -5,6 +5,10 @@
 <body>
     <body style="background-color:darkslategrey;">
     <canvas id="gameCanvas" width="1280px" height="720px"></canvas>
+    <select id="framework">
+        <option value="1">Easy</option>
+        <option value="2">Normal</option>
+    </select>
     <script>
         
      var username = '';
@@ -47,7 +51,7 @@
         
         //colors for ball, background, and player
         function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
+            colorRect(0,0,canvas.width,canvas.height,'black'); // background
             colorRect(ballXpos,ballYpos,BALL_SIZE,BALL_SIZE,'purple'); // ball
             colorRect(playerPaddleXpos,playerPaddleYpos,PLAYER_PADDLE_WIDTH,PLAYER_PADDLE_HEIGHT,'red'); // player paddle
             
