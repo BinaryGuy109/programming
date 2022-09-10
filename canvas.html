@@ -1,12 +1,25 @@
 <!doctype html>
 <head>
     <title>Pong</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 </head>
 <body>
+    <style>
+        .span {
+            font-size: large;
+            color:white;
+        }
+        #score {
+            font-size: large;
+            color: white;
+        }
+    </style>
     <body style="background-color:darkslategrey;">
     <canvas id="gameCanvas" width="1280px" height="720px"></canvas>
+    <p>Score <span id='score'></span></p>
     <script>
-        
+    var count = 0;  
      var username = '';
         while (username == '' || username == null) {
         username = prompt('What is your name?') || ''; //Program will ask for username
@@ -59,6 +72,7 @@
             startingPos = false;
                 
             }
+            CheckScore();
         }
         
         const UP_KEY = 87; 
@@ -66,6 +80,17 @@
         var upPressed = false;
         var downPressed = false;
 
+
+        //Check score
+        function CheckScore(){
+            if(ballXpos == 32){
+                
+                count = count + 1;
+            $('#score').text(count);
+            }
+            
+            
+        }
         //controls
         
         function keyPressed(evt){
@@ -93,7 +118,7 @@
             if(downPressed == true){
                 playerPaddleYpos += playerPaddleYspeed
             }
-            
+           
         }
             function startPos(){
                 ballXpos = canvas.width / 2 - BALL_SIZE / 2;
@@ -120,6 +145,7 @@
             if(ballXpos < playerPaddleXpos + PLAYER_PADDLE_WIDTH){
                ballXspeed = ballXspeed *= -1;
                }
+               
         }
         
         
