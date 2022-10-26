@@ -281,6 +281,8 @@ var Game = {
 		this.context.lineWidth = 15;
 		this.context.strokeStyle = 'red';
 		this.context.stroke();
+		ctx.strokeRect(0, 0, theCanvas.width, theCanvas.height);
+
 
 		// Set the default canvas font and align it to the center
 		this.context.font = '100px Courier New';
