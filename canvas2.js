@@ -317,6 +317,11 @@ var Game = {
 
 		// If the game is not over, draw the next frame.
 		if (!Pong.over) requestAnimationFrame(Pong.loop);
+
+		function addDifficulty() {
+			ais += 2
+		  }
+
 	},
 
 	listen: function () {
@@ -363,3 +368,4 @@ var Game = {
 
 var Pong = Object.assign({}, Game);
 Pong.initialize();
+
