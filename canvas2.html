@@ -22,7 +22,7 @@
 		var rounds = [5, 5, 3, 3, 2];
 		var colors = ['#1abc9c', '#2ecc71', '#3498db', '#e74c3c', '#9b59b6'];
 
-		// The ball object (The cube that bounces back and forth)
+		// Ball Movement
 		var Ball = {
 			new: function (incrementedSpeed) {
 				return {
@@ -37,7 +37,7 @@
 			}
 		};
 
-		// The paddle object (The two lines that move up and down)
+		// Paddle Size & Movement
 		var Paddle = {
 			new: function (side) {
 				return {
@@ -78,11 +78,11 @@
 			},
 
 			endGameMenu: function (text) {
-				// Change the canvas font size and color
+				// Canvas color and font
 				Pong.context.font = '60px Courier New';
 				Pong.context.fillStyle = this.color;
 
-				// Draw the rectangle behind the 'Press any key to begin' text.
+				// Box Behind Starting Text
 				Pong.context.fillRect(
 					Pong.canvas.width / 2 - 350,
 					Pong.canvas.height / 2 - 48,
@@ -90,10 +90,10 @@
 					100
 				);
 
-				// Change the Lose Text color;
+				// Lost Color Change
 				Pong.context.fillStyle = 'cyan';
 
-				// Draw the end game menu text ('Game Over' and 'Winner')
+				// Result Outcome Text
 				Pong.context.fillText(text,
 					Pong.canvas.width / 2,
 					Pong.canvas.height / 2 + 15
@@ -113,7 +113,7 @@
 				this.context.font = '50px Courier New';
 				this.context.fillStyle = this.color;
 
-				// Draw the rectangle behind the 'Press any key to begin' text.
+				// Box hehind Starting Text
 				this.context.fillRect(
 					this.canvas.width / 2 - 350,
 					this.canvas.height / 2 - 48,
@@ -121,31 +121,31 @@
 					100
 				);
 
-				// Change the Win Text color;
+				// Win Text Color Change
 				this.context.fillStyle = 'cyan';
 
-				// Draw the 'press any key to begin' text
+				// Press to Begin Text
 				this.context.fillText(UserName + ', Press any key to begin',
 					this.canvas.width / 2,
 					this.canvas.height / 2 + 15
 				);
 			},
 
-			// Update all objects (move the player, paddle, ball, increment the score, etc.)
+			// Update all objects
 			update: function () {
 				if (!this.over) {
-					// If the ball collides with the bound limits - correct the x and y coords.
+					// correct the x and y coords if the ball collides with the bound limits
 					if (this.ball.x <= 0) Pong._resetTurn.call(this, this.paddle, this.player);
 					if (this.ball.x >= this.canvas.width - this.ball.width) Pong._resetTurn.call(this, this.player, this.paddle);
 					if (this.ball.y <= 0) this.ball.moveY = DIRECTION.DOWN;
 					if (this.ball.y >= this.canvas.height - this.ball.height) this.ball.moveY = DIRECTION.UP;
 
-					// Move player if they player.move value was updated by a keyboard event
+					// Move paddle if their player.move value was updated by input
 					if (this.player.move === DIRECTION.UP) this.player.y -= this.player.speed;
 					else if (this.player.move === DIRECTION.DOWN) this.player.y += this.player.speed;
 
-					// On new serve (start of each turn) move the ball to the correct side
-					// and randomize the direction to add some challenge.
+					// Move Ball to correct side each turn.
+					// randomize ball's direction
 					if (Pong._turnDelayIsOver.call(this) && this.turn) {
 						this.ball.moveX = this.turn === this.player ? DIRECTION.LEFT : DIRECTION.RIGHT;
 						this.ball.moveY = [DIRECTION.UP, DIRECTION.DOWN][Math.round(Math.random())];
@@ -153,17 +153,17 @@
 						this.turn = null;
 					}
 
-					// If the player collides with the bound limits, update the x and y coords.
+					// update the x and y coordinants if the player collides with the bound limits.
 					if (this.player.y <= 0) this.player.y = 0;
 					else if (this.player.y >= (this.canvas.height - this.player.height)) this.player.y = (this.canvas.height - this.player.height);
 
-					// Move ball in intended direction based on moveY and moveX values
+					// based on moveY and moveX values move ball in intended direction
 					if (this.ball.moveY === DIRECTION.UP) this.ball.y -= (this.ball.speed / 1.5);
 					else if (this.ball.moveY === DIRECTION.DOWN) this.ball.y += (this.ball.speed / 1.5);
 					if (this.ball.moveX === DIRECTION.LEFT) this.ball.x -= this.ball.speed;
 					else if (this.ball.moveX === DIRECTION.RIGHT) this.ball.x += this.ball.speed;
 
-					// Handle paddle (AI) UP and DOWN movement
+					// Handle AI's paddle verticle movement.
 					if (this.paddle.y > this.ball.y - (this.paddle.height / 2)) {
 						if (this.ball.moveX === DIRECTION.RIGHT) this.paddle.y -= this.paddle.speed / 1.5;
 						else this.paddle.y -= this.paddle.speed / 4;
@@ -173,7 +173,7 @@
 						else this.paddle.y += this.paddle.speed / 4;
 					}
 
-					// Handle paddle (AI) wall collision
+					// Handle AI's paddle collision with wall.
 					if (this.paddle.y >= this.canvas.height - this.paddle.height) this.paddle.y = this.canvas.height - this.paddle.height;
 					else if (this.paddle.y <= 0) this.paddle.y = 0;
 
@@ -199,10 +199,9 @@
 				}
 
 				// Handle the end of round transition
-				// Check to see if the player won the round.
+				// Check to see if the player Or AI won the round.
 				if (this.player.score === rounds[this.round]) {
-					// Check to see if there are any more rounds/levels left and display the victory screen if
-					// there are not.
+					// Check to see if any rounds or matches remain, and if there are not
 					if (!rounds[this.round + 1]) {
 						this.over = true;
 						setTimeout(function () { Pong.endGameMenu('Winner!'); }, 1000);
@@ -218,7 +217,7 @@
 						//beep3.play();
 					}
 				}
-				// Check to see if the paddle/AI has won the round.
+				// Check to see if the paddle or AI has won the round.
 				else if (this.paddle.score === rounds[this.round]) {
 					this.over = true;
 					setTimeout(function () { Pong.endGameMenu('Game Over, you lose ' + UserName + '!!'); }, 1000);
@@ -275,14 +274,14 @@
 					);
 				}
 
-				// Draw the net (Line in the middle)
-				this.context.beginPath();
-				this.context.setLineDash([7, 8]);
-				this.context.moveTo((this.canvas.width / 2), this.canvas.height - 140);
-				this.context.lineTo((this.canvas.width / 2), 140);
-				this.context.lineWidth = 15;
-				this.context.strokeStyle = 'red';
-				this.context.stroke();
+				// // Draw the center line
+				// this.context.beginPath();
+				// this.context.setLineDash([7, 8]);
+				// this.context.moveTo((this.canvas.width / 2), this.canvas.height - 140);
+				// this.context.lineTo((this.canvas.width / 2), 140);
+				// this.context.lineWidth = 15;
+				// this.context.strokeStyle = 'red';
+				// this.context.stroke();
 
 
 				// Set the default canvas font and align it to the center
