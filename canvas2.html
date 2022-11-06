@@ -18,6 +18,7 @@
 
 		};
 		const canvasName = 'canvas'; //Area to use for game
+		const canvasColour = 'darkred'; //Colour of the background
 
 		var UserName = prompt('What is your username')
 
@@ -72,7 +73,7 @@
 				this.running = this.over = false;
 				this.turn = this.paddle;
 				this.timer = this.round = 0;
-				this.color = 'darkred';
+				this.color = canvasColour;
 
 				Pong.menu();
 				Pong.listen();
