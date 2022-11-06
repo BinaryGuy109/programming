@@ -17,6 +17,8 @@
 			RIGHT: 4
 
 		};
+		const canvasName = 'canvas'; //Area to use for game
+
 		var UserName = prompt('What is your username')
 
 		var rounds = [5, 5, 3, 3, 2];
@@ -51,10 +53,9 @@
 				};
 			}
 		};
-
 		var Game = {
 			initialize: function () {
-				this.canvas = document.querySelector('canvas');
+				this.canvas = document.querySelector(canvasName);
 				this.context = this.canvas.getContext('2d');
 
 				this.canvas.width = 2200;
