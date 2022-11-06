@@ -19,9 +19,25 @@
 		};
 		const canvasName = 'canvas'; //Area to use for game
 		const canvasColour = 'darkred'; //Colour of the background
+		const diffaculty = {
+			Easy:'Easy', Medium: 'Medium',Hard:'Hard'
+		}
 
-		var UserName = prompt('What is your username')
-
+		var UserName = prompt('What is your username');
+		var UserDiff = prompt('Select diffaculty, 0 for ' +diffaculty.Easy + ' or 1 for ' + diffaculty.Medium );
+		var diffacultySet = diffaculty.Easy;
+		var paddleHeight = 200;
+		switch (UserDiff){
+			case '0':
+				diffacultySet = diffaculty.Easy;
+				paddleHeight = 200;
+			break;
+			case '1':
+				diffacultySet = diffaculty.Medium;
+				paddleHeight = 150;
+			break;
+		}
+		
 		var rounds = [5, 5, 3, 3, 2];
 		var colors = ['#1abc9c', '#2ecc71', '#3498db', '#e74c3c', '#9b59b6'];
 
@@ -45,7 +61,7 @@
 			new: function (side) {
 				return {
 					width: 18,
-					height: 200,
+					height: paddleHeight,
 					x: side === 'left' ? 150 : this.canvas.width - 150,
 					y: (this.canvas.height / 2) - 35,
 					score: 0,
